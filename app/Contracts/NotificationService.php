@@ -13,6 +13,6 @@ interface NotificationService
      * @param User $user
      * @param string $message
      */
-    public function notify(User $user, string $message): Collection;
+    public function notify(User $user, string $message): bool;
 
 }
