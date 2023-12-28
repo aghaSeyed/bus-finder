@@ -32,6 +32,6 @@ return [
     ],
     'provider'=>
     [
-        'notification' => 'email'
+        'notification' => 'sms'
     ]
 ];

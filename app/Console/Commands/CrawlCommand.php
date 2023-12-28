@@ -45,20 +45,19 @@ class CrawlCommand extends Command
             foreach ($userRequests as $userRequest) {
                 $requestResult = RequestResult::where('user_request_id', $userRequest->id)->count();
                 if ($requestResult == 0) {
-//                    $out = shell_exec('python .\app\Crawl\main.py THR IFN 1402-06-29');
                     try {
-                        $this->notificationService->notify($user, 'salam');
+                        $out = shell_exec("python3 ./app/Crawl/main.py $userRequest->src $userRequest->dst $userRequest->date");
+                        $this->notificationService->notify($user, $out);
                         RequestResult::create([
                             'user_request_id' => $userRequest->id,
-                            'result' => 'salam'
+                            'result' => json_encode($out)
                         ]);
-                        Log::debug(3);
+                        Log::debug(json_encode($out));
                     } catch (\Exception $e) {
-                        Log::debug($e);
+                        Log::debug($e->getMessage());
                     }
                 }
             }
         }
-        Log::debug(2);
     }
 }

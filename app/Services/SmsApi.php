@@ -19,10 +19,9 @@ class SmsApi implements NotificationService
             $api = new MelipayamakApi($username, $password);
             $sms = $api->sms();
             $to = $user->phone;
-            $from = '5000...';
+            $from = env('MELI_FROM');
             $response = $sms->send($to, $from, $message);
             $json = json_decode($response);
-            echo $json->Value;
             Log::debug($json->Value);
             return true;
         } catch (\Exception $e) {
